@@ -19,11 +19,15 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guard/auth.guard';
+import { PreventUnsavedChangesGuard } from './_guard/prevent-unsaved-changes.guard';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './member/member-card/member-card.component';
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { MemberEditComponent } from './member/member-edit/member-edit.component';
+
 
 
 
@@ -41,7 +45,9 @@ export function tokenGetter() {
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
+   
    ],
    imports: [
       BrowserModule,
@@ -51,7 +57,7 @@ export function tokenGetter() {
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
-      JwtModule.forRoot({config: {
+           JwtModule.forRoot({config: {
          tokenGetter,
          whitelistedDomains: ['localhost:50000'],
          blacklistedRoutes: ['localhost:50000/api/auth']
@@ -62,8 +68,10 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard, UserService,
+      PreventUnsavedChangesGuard,
       MemberDetailResolver,
-      MemberListResolver
+      MemberListResolver,
+      MemberEditResolver
    ],
    bootstrap: [
       AppComponent
